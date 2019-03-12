@@ -92,5 +92,18 @@ class LunchTest extends \Mockery\Adapter\Phpunit\MockeryTestCase
         $lunch = (new \recipe\app\Lunch($ingredients, $recipes, '2019-03-14'))(); // Create Lunch object and invoke for data.
         $this->assertSame($expected, (array)$lunch); // Confirm response is as expected.
     }
+
+    /**
+    * testLunchDebugOutOfDateIngredients: Test to trace bug.
+    */
+    public function testLunchDebugOutOfDateIngredients()
+    {
+        $ingredients = json_decode('[{"title":"Ham","best-before":"2019-03-09","use-by":"2019-03-14"},{"title":"Cheese","best-before":"2019-03-09","use-by":"2019-03-14"},{"title":"Bread","best-before":"2019-03-09","use-by":"2019-03-14"},{"title":"Butter","best-before":"2019-03-09","use-by":"2019-03-14"},{"title":"Bacon","best-before":"2019-03-04","use-by":"2019-03-09"},{"title":"Eggs","best-before":"2019-03-04","use-by":"2019-03-09"},{"title":"Mushrooms","best-before":"2019-02-22","use-by":"2019-02-25"},{"title":"Sausage","best-before":"2019-03-04","use-by":"2019-03-09"},{"title":"Hotdog Bun","best-before":"2019-02-22","use-by":"2019-03-09"},{"title":"Ketchup","best-before":"2019-03-09","use-by":"2019-03-14"},{"title":"Mustard","best-before":"2019-03-09","use-by":"2019-03-14"},{"title":"Lettuce","best-before":"2019-03-04","use-by":"2019-03-09"},{"title":"Tomato","best-before":"2019-03-04","use-by":"2019-03-09"},{"title":"Cucumber","best-before":"2019-03-04","use-by":"2019-03-09"},{"title":"Beetroot","best-before":"2019-03-04","use-by":"2019-03-09"},{"title":"Salad Dressing","best-before":"2019-02-22","use-by":"2019-02-25"}]', true);
+        $recipes = json_decode('[{"title":"Fry-up","ingredients":["Bacon","Eggs","Baked Beans","Mushrooms","Sausage","Bread"]},{"title":"Hotdog","ingredients":["Hotdog Bun","Sausage","Ketchup","Mustard"]},{"title":"Salad","ingredients":["Lettuce","Tomato","Cucumber","Beetroot","Salad Dressing"]},{"title":"Ham and Cheese Toastie","ingredients":["Ham","Cheese","Bread","Butter"]},{"title":"Omelette","ingredients":["Eggs","Mushrooms","Milk","Salt","Pepper","Spinach"]}]', true);
+        $expected = json_decode('[{"title":"Ham and Cheese Toastie","ingredients":["Ham","Cheese","Bread","Butter"],"best-before":"2019-03-09"}]', true);
+        $lunch = new \recipe\app\Lunch($ingredients, $recipes, '2019-03-13');
+        $lunch = $lunch();
+        $this->assertSame($expected, (array)$lunch);
+    }
 }
 

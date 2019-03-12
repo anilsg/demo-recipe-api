@@ -98,6 +98,12 @@ Namespaces were declared in lower case to compare to the directory names.
 An OPTIONS request to the root or generic URI could be used to check status
 and confirm data is being loaded and service is available.
 
+### Test Coverage
+
+Test coverage is 99.8% of all code lines.
+
+![Test coverage](test_coverage.png) 
+
 ### References
 
 - https://www.php-fig.org/psr/psr-1/

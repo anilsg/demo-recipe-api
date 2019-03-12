@@ -15,7 +15,7 @@ class Lunch
 {
     protected $ingredients; // E.g. ['Ham'=>{'title':'Ham','best-before':'2019-03-09','use-by':'2019-03-14'}, 'Cheese'=>{ ...
     protected $recipes; // Array of recipes as list of arrays (unchanged as supplied to constructor).
-    protected $today; // 'Y-m-d' of date in effect for sort comparisons e.g. '2019-03-09'.
+    public $today; // 'Y-m-d' of date in effect for sort comparisons e.g. '2019-03-09'.
 
     /**
     * Accepts ingredients and recipes and optional date for comparisons which defaults to today.

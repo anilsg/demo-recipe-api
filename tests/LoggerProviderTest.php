@@ -2,7 +2,7 @@
 
 use \PHPUnit\Framework\TestCase;
 use \Mockery\Adapter\Phpunit\MockeryTestCase;
-use \Slim\Container;
+use \Pimple\Container;
 
 /**
 * Test the recipe\app\LoggerProvider at least has generated an instance of Monolog.
@@ -16,5 +16,7 @@ class LoggerProviderTest extends PHPUnit\Framework\TestCase
         $provider = new \recipe\app\LoggerProvider(); // Instance of LoggerProvider to test.
         $provider->register($container); // Pass container in when setting up with call to register.
         $this->assertSame('Monolog\Logger', get_class($container['logger'])); // Logger should be present now.
+        $this->assertNotCount(0, $container['logger']->getHandlers());
+        $this->assertSame('recipe', $container['logger']->getName());
     }
 }

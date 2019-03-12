@@ -65,6 +65,23 @@ Convenience script to run tests and dump coverage, provided in composer.json
   - DataProviderTest.php: test data service
   - RouterTest.php: test Router
 
+### REST API
+
+These endpoints are supported:
+
+- **/ingredients**: Full list of known ingredients.
+- **/recipes**: Full list of potential recipes.
+- **/lunch**: Filtered, sorted list of recipes for available ingredients.
+
+  - Recipes with ingredients missing from the main list are removed.
+  - Recipes relying on ingredients past their use-by date are removed.
+  - Recipes are tagged with the oldest best-before date amongst their ingredients.
+  - Missing use-by and best-before dates are supported.
+  - Recipes are sorted with the oldest best-before dates last.
+  - Recipes are returned with the oldest best-before date information provided.
+  - Today's date as returned by the system is used for comparisons.
+  - Both use-by and best-before are treated as expired on the given date.
+
 ### Notes
 
 Manual loading or composer optimised auto-loading is recommended for production.

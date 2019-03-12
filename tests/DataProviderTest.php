@@ -2,7 +2,6 @@
 
 use \PHPUnit\Framework\TestCase;
 use \Mockery\Adapter\Phpunit\MockeryTestCase;
-use \Slim\Container;
 
 /**
 * Test the recipe\app\DataProvider loads and presents data from JSON files correctly.
@@ -33,8 +32,9 @@ class DataProviderTest extends \Mockery\Adapter\Phpunit\MockeryTestCase
     */
     public function testNoData()
     {
-        $logger = \Mockery::mock('recipe\app\LoggerProvider');
-        $logger->shouldReceive('addWarning')->once()->andReturnNull();
+        $logger = \Mockery::mock('recipe\app\LoggerProvider'); // Mock LoggerProvider.
+        $logger->shouldReceive('addWarning')->once()->andReturnNull(); // One call to log warning expected.
+
         $container = [ 'settings'=>[ 'data_directory'=>'data-none/' ], 'logger'=>$logger ]; // Pass in empty directory.
         $container = new \Slim\Container($container); // Create new \Slim\Container as \Slim\App() does.
         $provider = new \recipe\app\DataProvider(); // Instance of DataProvider to test.

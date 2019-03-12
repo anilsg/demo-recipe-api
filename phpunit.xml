@@ -2,7 +2,6 @@
     <filter>
         <whitelist>
             <directory suffix=".php">app/</directory>
-            <directory suffix=".php">pub/</directory>
         </whitelist>
     </filter>
     <logging>

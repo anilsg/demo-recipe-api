@@ -1,7 +1,6 @@
 <?php
 
 use \Mockery\Adapter\Phpunit\MockeryTestCase;
-use \Slim\Container;
 
 /**
 * Test the recipe\app\Router route ingredients, recipes and lunch end points can be accessed.
@@ -64,6 +63,7 @@ class RouterTest extends \Mockery\Adapter\Phpunit\MockeryTestCase
     */
     public function testGetLunch()
     {
+        // under construction
         $logger = \Mockery::mock('recipe\app\LoggerProvider'); // Mock the LoggerProvider.
         $logger->shouldReceive('addInfo')->once()->andReturnNull(); // Expect a single call to log the GET request.
 

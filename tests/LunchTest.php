@@ -68,8 +68,8 @@ class LunchTest extends \Mockery\Adapter\Phpunit\MockeryTestCase
     /**
     * testLunchNoRecipes: Test based on use-by and best-before when all ingredients have expired.
     * GIVEN that I am an API client AND I have made a GET request to the /lunch endpoint
-    * AND an ingredient is past its use-by date
-    * THEN I should not receive any recipes containing this ingredient 
+    * AND all ingredients are past their use-by date
+    * THEN I should not receive any recipes
     */
     public function testLunchNoRecipes()
     {

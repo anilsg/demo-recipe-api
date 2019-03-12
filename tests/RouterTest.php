@@ -50,5 +50,24 @@ class RouterTest extends \Mockery\Adapter\Phpunit\MockeryTestCase
         $response = $router->getRecipes($request, $response, []);
         $this->assertSame($json, (string)$response->getBody());
     }
+
+    /**
+    * Test a REST GET on the lunch URI in app\Router.php.
+    */
+    public function testGetLunch()
+    {
+        $container = new \Slim\Container(['data'=>['ingredients'=>[], 'recipes'=>[]]]);
+        $router = new \recipe\app\Router($container); // Not testing \Slim\App testing \recipe\app\Router.
+        $environment = \Slim\Http\Environment::mock([ // Mock a GET /recipes request.
+            'REQUEST_METHOD' => 'GET',
+            'REQUEST_URI' => '/lunch',
+            'QUERY_STRING'=>'']
+        );
+        $request = \Slim\Http\Request::createFromEnvironment($environment);
+        $response = new \Slim\Http\Response();
+        $response = $router->getLunch($request, $response, []);
+        $html = '<h1 style="color:red">Lunch Time!</h1>'; // Temporary test data.
+        $this->assertSame($html, (string)$response->getBody());
+    }
 }
 

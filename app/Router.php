@@ -39,8 +39,9 @@ class Router
     */
     public function getIngredients(Request $request, Response $response, $args = [])
     {
-        $ingredients = $this->container['data']['ingredients'];
-        return $response->withJson($ingredients);
+        $ingredients = $this->container['data']['ingredients']; // Retrieve data loaded by DataProvider.
+        // $this->container['logger']->addInfo('GET ingredients list', array('count'=>count($ingredients))); // Log the request.
+        return $response->withJson($ingredients); // Provide JSON response.
     }
 
     /**
@@ -52,10 +53,9 @@ class Router
     */
     public function getRecipes(Request $request, Response $response, $args = [])
     {
-        // $json = '[{"title":"Ham and Cheese Toastie","ingredients":["Ham","Cheese","Bread","Butter"]},{"title":"Fry-up","ingredients":["Bacon","Eggs","Baked Beans","Mushrooms","Sausage","Bread"]},{"title":"Salad","ingredients":["Lettuce","Tomato","Cucumber","Beetroot","Salad Dressing"]},{"title":"Hotdog","ingredients":["Hotdog Bun","Sausage","Ketchup","Mustard"]},{"title":"Omelette","ingredients":["Eggs","Mushrooms","Milk","Salt","Pepper","Spinach"]}]';
-        // $recipes = json_decode($json);
         $recipes = $this->container['data']['recipes']; // Get data loaded by DataProvider.
-        return $response->withJson($recipes);
+        // $this->container['logger']->addInfo('GET recipes list', array('count'=>count($recipes))); // Log the request.
+        return $response->withJson($recipes); // JSON encoded response.
     }
 
     /**
@@ -68,7 +68,9 @@ class Router
     public function getLunch(Request $request, Response $response, $args = [])
     {
         // construction in progress
-        return $response->getBody()->write('<h1 style="color:red">Lunch Time!</h1>');
+        // $this->container['logger']->addInfo('GET Lunch!');
+        $response->getBody()->write('<h1 style="color:red">Lunch Time!</h1>');
+        return $response;
     }
 
 }

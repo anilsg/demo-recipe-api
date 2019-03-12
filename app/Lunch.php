@@ -28,13 +28,13 @@ class Lunch
     */
     public function __construct(array $ingredients, array $recipes, $today = null)
     {
-        $this->today = $today === null ? date('Y-m-d') : $today; // Over-ride today's date if provided.
+        $this->today = $today ? $today : date('Y-m-d'); // Over-ride today's date if user provided.
         $this->recipes = $recipes; // Array of arrays with 'title' and 'ingredients' sub keys, unchanged.
         $this->ingredients = []; // Re-indexed filtered array of ingredients using ingredient titles as keys.
 
         // Available ingredients are culled on construction.
         foreach ($ingredients as $key => $ingredient) { // $ingredient has keys 'title', 'best-before', 'use-by'.
-            if (array_key_exists('use-by', $ingredient) and $ingredient['use-by'] <= $today) { // Discard expired ingredients.
+            if (array_key_exists('use-by', $ingredient) and $ingredient['use-by'] <= $this->today) { // Discard expired ingredients.
                 continue; // String comparison of ISO dates works and is quick and simple.
             }
             else { // Include this ingredient in available list.

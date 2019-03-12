@@ -40,7 +40,7 @@ class Router
     public function getIngredients(Request $request, Response $response, $args = [])
     {
         $ingredients = $this->container['data']['ingredients']; // Retrieve data loaded by DataProvider.
-        // $this->container['logger']->addInfo('GET ingredients list', array('count'=>count($ingredients))); // Log the request.
+        $this->container['logger']->addInfo('GET ingredients list', array('count'=>count($ingredients))); // Log the request.
         return $response->withJson($ingredients); // Provide JSON response.
     }
 
@@ -54,7 +54,7 @@ class Router
     public function getRecipes(Request $request, Response $response, $args = [])
     {
         $recipes = $this->container['data']['recipes']; // Get data loaded by DataProvider.
-        // $this->container['logger']->addInfo('GET recipes list', array('count'=>count($recipes))); // Log the request.
+        $this->container['logger']->addInfo('GET recipes list', array('count'=>count($recipes))); // Log the request.
         return $response->withJson($recipes); // JSON encoded response.
     }
 
@@ -68,7 +68,7 @@ class Router
     public function getLunch(Request $request, Response $response, $args = [])
     {
         // construction in progress
-        // $this->container['logger']->addInfo('GET Lunch!');
+        $this->container['logger']->addInfo('GET Lunch!');
         $response->getBody()->write('<h1 style="color:red">Lunch Time!</h1>');
         return $response;
     }

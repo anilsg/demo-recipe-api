@@ -18,7 +18,10 @@ class Lunch
     protected $today; // 'Y-m-d' of date in effect for sort comparisons e.g. '2019-03-09'.
 
     /**
-    * Accepts ingredients and recipes and optional date for evaluation which defaults to today.
+    * Accepts ingredients and recipes and optional date for comparisons which defaults to today.
+    * Rebuilds ingredients list omitting expired ingredients and re-indexing with title as keys.
+    * Incoming: [ 1=>{'title':'Ham','best-before':'2019-03-09','use-by':'2019-03-14'}, 2=>{ ...
+    * Outgoing: [ 'Ham'=>{'title':'Ham','best-before':'2019-03-09','use-by':'2019-03-14'}, 'Cheese'=>{ ...
     * @param array ingredients supplied as [ {"title":"Ham","best-before":"2019-03-09","use-by":"2019-03-14"}, {"title":"Cheese", ...
     * @param array recipes supplied as [ {"title":"Fry-up","ingredients":["Bacon", ... ]}, {"title":"Salad","ingredients":["Lettuce", ...
     * @param string ISO date for evaluation 'YYYY-MM-DD'
@@ -27,10 +30,16 @@ class Lunch
     {
         $this->today = $today === null ? date('Y-m-d') : $today; // Over-ride today's date if provided.
         $this->recipes = $recipes; // Array of arrays with 'title' and 'ingredients' sub keys, unchanged.
-        $this->ingredients = []; // Re-index array of ingredients using ingredient titles as keys.
-        foreach ($ingredients as $key => $val) { // For all incoming ingredients.
-            $this->ingredients[$val['title']] = $val; // Index on ingredient title.
-        } // E.g. ['Ham'=>{'title':'Ham','best-before':'2019-03-09','use-by':'2019-03-14'}, 'Cheese'=>{ ...
+        $this->ingredients = []; // Re-indexed filtered array of ingredients using ingredient titles as keys.
+
+        foreach ($ingredients as $key => $ingredient) { // $ingredient has keys 'title', 'best-before', 'use-by'.
+            if (array_key_exists('use-by', $ingredient) and $ingredient['use-by'] < $today) { // Discard expired ingredients.
+                continue; // String comparison of ISO dates works and is quick and simple.
+            }
+            else { // Include this ingredient in available list.
+                $this->ingredients[$ingredient['title']] = $ingredient; // Index on ingredient title.
+            }
+        }
     }
 
     /**
@@ -44,7 +53,7 @@ class Lunch
 
         // Remove recipes without available ingredients.
         foreach ($this->recipes as $key => $recipe) { // $recipe = {"title":"Fry-up","ingredients":["Bacon", ... ]}
-            foreach ($recipe['ingredients'] as $ingredient) { // Each ingredient in the recipe.
+            foreach ($recipe['ingredients'] as $ingredient) { // Check each ingredient in the recipe.
                 if (!array_key_exists($ingredient, $this->ingredients)) { // Discard recipe if any ingredient missing.
                     continue 2; // Continue with the next recipe.
                 } // End if.

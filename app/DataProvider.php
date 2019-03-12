@@ -1,8 +1,8 @@
 <?php
 namespace recipe\app;
 
-use \Pimple\Container as Container;
-use \Pimple\ServiceProviderInterface as ServiceProviderInterface;
+use \Pimple\Container;
+use \Pimple\ServiceProviderInterface;
 
 /**
 * Data service to load data into DI container so classes have access to data.

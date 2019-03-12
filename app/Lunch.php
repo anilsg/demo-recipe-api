@@ -40,5 +40,14 @@ class Lunch
         // $recipes = $this->container['data']['recipes'];
         // $lunch = new Lunch($ingredients, $recipes);
         // return $lunch();
+        return [];
+    }
+
+    /**
+    * Return filtered recipe list based on criteria applied to ingredients.
+    * @return array
+    */
+    protected function filter()
+    {
     }
 }

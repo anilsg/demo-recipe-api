@@ -67,10 +67,9 @@ class Router
     */
     public function getLunch(Request $request, Response $response, $args = [])
     {
-        // construction in progress
-        $this->container['logger']->addInfo('GET Lunch!');
-        $response->getBody()->write('<h1 style="color:red">Lunch Time!</h1>');
-        return $response;
+        $lunch = (new \recipe\app\Lunch($this->container['data']['ingredients'], $this->container['data']['recipes']))(); // Invoke.
+        $this->container['logger']->addInfo('GET lunch list', array('count'=>count($lunch))); // Log the request.
+        return $response->withJson($lunch); // Encode response as JSON.
     }
 
 }

@@ -13,8 +13,8 @@ namespace recipe\app;
 */
 class Lunch
 {
-    protected $ingredients; // E.g. ['Ham'=>{'title':'Ham','best-before':'2019-03-09','use-by':'2019-03-14'}, 'Cheese'=>{ ...
-    protected $recipes; // Array of recipes as list of arrays (unchanged as supplied to constructor).
+    public $ingredients; // E.g. ['Ham'=>{'title':'Ham','best-before':'2019-03-09','use-by':'2019-03-14'}, 'Cheese'=>{ ...
+    public $recipes; // Array of recipes as list of arrays (unchanged as supplied to constructor).
     public $today; // 'Y-m-d' of date in effect for sort comparisons e.g. '2019-03-09'.
 
     /**

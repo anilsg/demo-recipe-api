@@ -67,14 +67,7 @@ class LunchTest extends \Mockery\Adapter\Phpunit\MockeryTestCase
 
     /**
     * testLunchSortBestBefore: Test based on use-by and best-before.
-    * GIVEN that I am an API client AND I have made a GET request to the /lunch endpoint
-    * AND an ingredient is past its best-before date AND is still within its use-by date
-    * THEN any recipe containing this ingredient should be sorted to the bottom of the JSON response object 
-    *
-    * Before 2019-03-14: "Ham and Cheese Toastie"
-    * Before 2019-03-09: "Ham and Cheese Toastie", "Hotdog" (Hotdog last)
-    * Before 2019-03-04: "Ham and Cheese Toastie", "Hotdog" (Hotdog last)
-    * Before 2019-02-25: "Ham and Cheese Toastie", "Hotdog", "Salad" (Hotdog then Salad last)
+    * Alternative data to achieve further code coverage of the sort comparison algorithm.
     */
     public function testLunchSortBestBefore2()
     {

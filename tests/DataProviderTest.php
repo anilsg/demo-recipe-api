@@ -28,6 +28,6 @@ class DataProviderTest extends \Mockery\Adapter\Phpunit\MockeryTestCase
         $container = new \Slim\Container($container); // Create new \Slim\Container as \Slim\App() does.
         $provider = new \recipe\app\DataProvider(); // Instance of DataProvider to test.
         $provider->register($container); // Confirm DataProvider executes safely with no data.
-        $this->assertSame([], $container['data']);
+        $this->assertSame(['ingredients'=>[], 'recipes'=>[]], $container['data']);
     }
 }

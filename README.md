@@ -17,6 +17,13 @@ Clone `composer.json` and `composer.lock` then:
 
     composer install
 
+Install reproduces:
+
+    composer require slim/slim
+    composer require phpunit/phpunit
+    composer require mockery/mockery
+    composer require monolog/monolog
+
 During build modifications may also require:
 
     composer dump-autoload
@@ -47,4 +54,5 @@ Convenience script to run tests and dump coverage, provided in composer.json
 - https://getcomposer.org/
 - https://www.slimframework.com/
 - https://secure.php.net/manual/en/
+
 

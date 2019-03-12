@@ -15,22 +15,23 @@ class Lunch
 {
     protected $ingredients;
     protected $recipes;
+    protected $today;
 
     /**
+    * Accepts ingredients and recipes and optional date for evaluation which defaults to today.
     * @param array ingredients
     * @param array recipes
+    * @param string date for evaluation
     */
-    public function __construct(array $recipes, array $ingredients)
+    public function __construct(array $ingredients, array $recipes, $today = null)
     {
-        $this->recipes = $recipes;
-        $this->ingredients = $ingredients;
+        $this->ingredients = $ingredients; // List of ingredient descriptors.
+        $this->recipes = $recipes; // List of recipe descriptors.
+        $this->today = $today; // Over-ride today's date if required.
     }
 
     /**
     * Return filtered recipe list based on criteria applied to ingredients.
-    * @param ingredients
-    * @param recipes
-    * @param array
     * @return array
     */
     public function __invoke()

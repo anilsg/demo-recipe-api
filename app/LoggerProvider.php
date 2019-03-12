@@ -20,6 +20,14 @@ use \Pimple\ServiceProviderInterface;
 */
 class LoggerProvider implements ServiceProviderInterface
 {
+    /**
+    * Create logger according to config and present in the container.
+    *
+    * $container['settings']['logger_name'] name of logger and log file
+    * $container['settings']['logger_directory'] relative directory for storing logs
+    *
+    * @param \Pimple\Container
+    */
     public function register(Container $container)
     {
         $logger_name = $container['settings']['logger_name']; // Nomination for logs e.g. 'recipe'.

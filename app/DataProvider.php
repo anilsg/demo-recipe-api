@@ -54,6 +54,9 @@ class DataProvider implements ServiceProviderInterface
             }
         }
         $container['data'] = $data; // Make data available in container.
+        if (!$data and $container->has('logger')) {
+            $container['logger']->addWarning('No data loaded', array('data_directory'=>$data_directory, 'getcwd'=>getcwd()));
+        }
     }
 }
 

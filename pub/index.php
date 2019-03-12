@@ -37,8 +37,10 @@ $app = new \Slim\App(['settings' => $settings]);
 
 // Slim\App creates a \Psr\Container\ContainerInterface \Pimple\Container on construction.
 // Retrieve the container and register required providers.
-$container = $app->getContainer();
-$container->register(new \recipe\app\DataProvider($container));
+// LoggerProvider must be available first because DataProvider uses it.
+$container = $app->getContainer(); // Retrieve dependency injection container to register services.
+$container->register(new \recipe\app\LoggerProvider($container)); // Make logging available from $container['logger'].
+$container->register(new \recipe\app\DataProvider($container)); // Make data available from $container['data'].
 
 // Create Slim\App URI endpoints for REST API.
 $app->get('/ingredients', \recipe\app\Router::class . ':getIngredients');

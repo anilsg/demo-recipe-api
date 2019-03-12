@@ -30,6 +30,8 @@ class Router
 
     /**
     * Simply provide the current ingredients list as JSON.
+    * DataProvider will ensure 'ingredients' key is available in $container['data'].
+    * At a minimum an empty list will be available.
     * @param \Psr\Http\Message\ServerRequestInterface
     * @param \Psr\Http\Message\ResponseInterface
     * @param array
@@ -37,9 +39,7 @@ class Router
     */
     public function getIngredients(Request $request, Response $response, $args = [])
     {
-        // $json = '[{"title":"Ham","best-before":"2019-03-09","use-by":"2019-03-14"},{"title":"Cheese","best-before":"2019-03-09","use-by":"2019-03-14"},{"title":"Bread","best-before":"2019-03-09","use-by":"2019-03-14"},{"title":"Butter","best-before":"2019-03-09","use-by":"2019-03-14"},{"title":"Bacon","best-before":"2019-03-04","use-by":"2019-03-09"},{"title":"Eggs","best-before":"2019-03-04","use-by":"2019-03-09"},{"title":"Mushrooms","best-before":"2019-02-22","use-by":"2019-02-25"},{"title":"Sausage","best-before":"2019-03-04","use-by":"2019-03-09"},{"title":"Hotdog Bun","best-before":"2019-02-22","use-by":"2019-03-09"},{"title":"Ketchup","best-before":"2019-03-09","use-by":"2019-03-14"},{"title":"Mustard","best-before":"2019-03-09","use-by":"2019-03-14"},{"title":"Lettuce","best-before":"2019-03-04","use-by":"2019-03-09"},{"title":"Tomato","best-before":"2019-03-04","use-by":"2019-03-09"},{"title":"Cucumber","best-before":"2019-03-04","use-by":"2019-03-09"},{"title":"Beetroot","best-before":"2019-03-04","use-by":"2019-03-09"},{"title":"Salad Dressing","best-before":"2019-02-22","use-by":"2019-02-25"}]';
-        // $ingredients = json_decode($json);
-        $ingredients = $this->container['data']['ingredients']; // Get data loaded by DataProvider.
+        $ingredients = $this->container['data']['ingredients'];
         return $response->withJson($ingredients);
     }
 

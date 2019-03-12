@@ -28,6 +28,8 @@ class DataProvider implements ServiceProviderInterface
 {
     /**
     * Load data from JSON sources and present in the container.
+    * Data presented as nested array.
+    * Keys 'ingredients' and 'recipes' are always guaranteed to exist.
     *
     * $container['settings']['data_directory'] relative directory to load JSON files from
     * $container['settings']['data'] PHP object containing collated data
@@ -35,6 +37,7 @@ class DataProvider implements ServiceProviderInterface
     * @param \Pimple\Container
     *
     * TODO: Check for missing data_directory and handle read and syntax exceptions etc.
+    * TODO: Could provider a higher level reliable interface such as DataProvider->getIngredients().
     */
     public function register(Container $container)
     {
@@ -53,10 +56,17 @@ class DataProvider implements ServiceProviderInterface
                 // End per file JSON decode and load. /////
             }
         }
-        $container['data'] = $data; // Make data available in container.
-        if (!$data and $container->has('logger')) {
+        // Check for missing data.
+        if (!$data and $container->has('logger')) { // Check for no data and warn.
             $container['logger']->addWarning('No data loaded', array('data_directory'=>$data_directory, 'getcwd'=>getcwd()));
         }
+        if (!array_key_exists('ingredients', $data)) { // Protect users against missing key.
+            $data['ingredients'] = []; // Provide default empty list.
+        }
+        if (!array_key_exists('recipes', $data)) { // Protect users against missing key.
+            $data['recipes'] = []; // Provide default empty list.
+        }
+        $container['data'] = $data; // Make data available in container.
     }
 }
 

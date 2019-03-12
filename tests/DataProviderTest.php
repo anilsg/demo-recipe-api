@@ -9,6 +9,10 @@ use \Slim\Container;
 */
 class DataProviderTest extends \Mockery\Adapter\Phpunit\MockeryTestCase
 {
+    /**
+    * Test the recipe\app\DataProvider loads and presents data from JSON files correctly.
+    * Based on known JSON data files in the data directory.
+    */
     public function testDataProvider()
     {
         $container = [ 'settings'=>[ 'data_directory'=>'data/' ] ]; // Create data_directory settings.
@@ -22,9 +26,16 @@ class DataProviderTest extends \Mockery\Adapter\Phpunit\MockeryTestCase
         $this->assertSame($expects, $container['data']);
     }
 
+    /**
+    * Test the recipe\app\DataProvider handles missing or no data correctly.
+    * Uses alternative data-none directory that must be available with no JSON files present.
+    * Additional mocks logger that is triggered when no data condition detected.
+    */
     public function testNoData()
     {
-        $container = [ 'settings'=>[ 'data_directory'=>'data-none/' ] ]; // Pass in empty directory.
+        $logger = \Mockery::mock('recipe\app\LoggerProvider');
+        $logger->shouldReceive('addWarning')->once()->andReturnNull();
+        $container = [ 'settings'=>[ 'data_directory'=>'data-none/' ], 'logger'=>$logger ]; // Pass in empty directory.
         $container = new \Slim\Container($container); // Create new \Slim\Container as \Slim\App() does.
         $provider = new \recipe\app\DataProvider(); // Instance of DataProvider to test.
         $provider->register($container); // Confirm DataProvider executes safely with no data.

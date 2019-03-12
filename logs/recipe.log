@@ -16,3 +16,4 @@
 [2019-03-12 22:22:01] recipe.WARNING: No data loaded {"data_directory":"../data/","getcwd":"/home/neil/Dropbox/Build/demo-recipe-api/pub"} []
 [2019-03-12 22:22:01] recipe.INFO: GET ingredients list {"count":0} []
 [2019-03-12 22:22:44] recipe.INFO: GET ingredients list {"count":16} []
+[2019-03-12 23:10:09] recipe.INFO: GET ingredients list {"count":16} []

@@ -21,6 +21,11 @@ require '../vendor/autoload.php';
 $settings['displayErrorDetails'] = true;
 $settings['addContentLengthHeader'] = false;
 
+// Configure logger settings for logging module to use.
+// Logger expected to use 'logger_name' for log file name.
+$settings['logger_name'] = 'recipe';
+$settings['logger_directory'] = '../logs/';
+
 // Pass in configuration such as data load location.
 // This can be set from here for dev and prod as required.
 // (The run directory for the app is pub so need to refer up to parent.)

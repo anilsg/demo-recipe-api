@@ -76,7 +76,7 @@ In some places code could have been compressed
 but multi-line staged logic has been used to make the code more readable.
 
 The PSRs do not specify caps style for namespaces but StudlyCaps seems popular.
-Namespaces were actually specified in lower case to compare to the directory names.
+Namespaces were declared in lower case to compare to the directory names.
 
 An OPTIONS request to the root or generic URI could be used to check status
 and confirm data is being loaded and service is available.

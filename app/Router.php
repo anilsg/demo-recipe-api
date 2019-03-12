@@ -68,8 +68,8 @@ class Router
     public function getLunch(Request $request, Response $response, $args = [])
     {
         $lunch = new \recipe\app\Lunch($this->container['data']['ingredients'], $this->container['data']['recipes']); // Load data.
-        $today = $lunch->today; // Capture the date in use.
-        $lunch = $lunch(); // Invoke.
+        $today = $lunch->today; // Capture the today date in use.
+        $lunch = $lunch(); // Invoke to sort and return data.
         $this->container['logger']->addInfo('GET lunch list', ['count'=>count($lunch), 'today'=>$today]); // Log the request.
         return $response->withJson($lunch); // Encode response as JSON.
     }

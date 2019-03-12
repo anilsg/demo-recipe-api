@@ -33,7 +33,7 @@ class Lunch
         $this->ingredients = []; // Re-indexed filtered array of ingredients using ingredient titles as keys.
 
         foreach ($ingredients as $key => $ingredient) { // $ingredient has keys 'title', 'best-before', 'use-by'.
-            if (array_key_exists('use-by', $ingredient) and $ingredient['use-by'] < $today) { // Discard expired ingredients.
+            if (array_key_exists('use-by', $ingredient) and $ingredient['use-by'] <= $today) { // Discard expired ingredients.
                 continue; // String comparison of ISO dates works and is quick and simple.
             }
             else { // Include this ingredient in available list.

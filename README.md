@@ -23,10 +23,15 @@ During build modifications may also require:
 
 ### Usage
 
-Convenience script provided in composer.json
+Convenience script to start the application, provided in composer.json
 (executes `php -S localhost:8080 -t pub`):
 
     composer start
+
+Convenience script to run tests and dump coverage, provided in composer.json
+(executes `php vendor/bin/phpunit ; cat tests/build/coverage.txt`):
+
+    composer test
 
 ### Structure
 

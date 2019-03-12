@@ -10,6 +10,7 @@
         "mockery/mockery": "^1.2"
     },
     "scripts": {
-        "start": "php -S localhost:8080 -t pub"
+        "start": "php -S localhost:8080 -t pub",
+        "test": "php vendor/bin/phpunit ; cat tests/build/coverage.txt"
     }
 }

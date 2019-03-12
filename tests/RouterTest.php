@@ -78,8 +78,7 @@ class RouterTest extends \Mockery\Adapter\Phpunit\MockeryTestCase
         $request = \Slim\Http\Request::createFromEnvironment($environment);
         $response = new \Slim\Http\Response();
         $response = $router->getLunch($request, $response, []);
-        $html = '<h1 style="color:red">Lunch Time!</h1>'; // Temporary test data.
-        $this->assertSame($html, (string)$response->getBody());
+        $this->assertSame('[]', (string)$response->getBody());
     }
 }
 

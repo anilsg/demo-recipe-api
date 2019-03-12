@@ -16,11 +16,11 @@ class LunchTest extends \Mockery\Adapter\Phpunit\MockeryTestCase
     */
     public function testLunchList()
     {
-        $ingredients = json_decode('[{"title":"Ham"},{"title":"Cheese"},{"title":"Bread"},{"title":"Butter"},{"title":"Bacon"},{"title":"Eggs"},{"title":"Mushrooms"},{"title":"Sausage"},{"title":"Hotdog Bun"},{"title":"Ketchup"},{"title":"Mustard"},{"title":"Lettuce"},{"title":"Tomato"},{"title":"Cucumber"},{"title":"Beetroot"},{"title":"Salad Dressing"}]');
-        $recipes = json_decode('[{"title":"Ham and Cheese Toastie","ingredients":["Ham","Cheese","Bread","Butter"]},{"title":"Fry-up","ingredients":["Bacon","Eggs","Baked Beans","Mushrooms","Sausage","Bread"]},{"title":"Salad","ingredients":["Lettuce","Tomato","Cucumber","Beetroot","Salad Dressing"]},{"title":"Hotdog","ingredients":["Hotdog Bun","Sausage","Ketchup","Mustard"]},{"title":"Omelette","ingredients":["Eggs","Mushrooms","Milk","Salt","Pepper","Spinach"]}]');
-        $expected = json_decode('[{"title":"Ham and Cheese Toastie","ingredients":["Ham","Cheese","Bread","Butter"]},{"title":"Salad","ingredients":["Lettuce","Tomato","Cucumber","Beetroot","Salad Dressing"]},{"title":"Hotdog","ingredients":["Hotdog Bun","Sausage","Ketchup","Mustard"]}]');
-        $lunch = new \recipe\app\Lunch($ingredients, $recipes); // Create Lunch object.
-        $this->assertSame($expected, (array)$lunch()); // Invoke Lunch object for results.
+        $ingredients = json_decode('[{"title":"Ham"},{"title":"Cheese"},{"title":"Bread"},{"title":"Butter"},{"title":"Bacon"},{"title":"Eggs"},{"title":"Mushrooms"},{"title":"Sausage"},{"title":"Hotdog Bun"},{"title":"Ketchup"},{"title":"Mustard"},{"title":"Lettuce"},{"title":"Tomato"},{"title":"Cucumber"},{"title":"Beetroot"},{"title":"Salad Dressing"}]', true);
+        $recipes = json_decode('[{"title":"Ham and Cheese Toastie","ingredients":["Ham","Cheese","Bread","Butter"]},{"title":"Fry-up","ingredients":["Bacon","Eggs","Baked Beans","Mushrooms","Sausage","Bread"]},{"title":"Salad","ingredients":["Lettuce","Tomato","Cucumber","Beetroot","Salad Dressing"]},{"title":"Hotdog","ingredients":["Hotdog Bun","Sausage","Ketchup","Mustard"]},{"title":"Omelette","ingredients":["Eggs","Mushrooms","Milk","Salt","Pepper","Spinach"]}]', true);
+        $expected = json_decode('[{"title":"Ham and Cheese Toastie","ingredients":["Ham","Cheese","Bread","Butter"]},{"title":"Salad","ingredients":["Lettuce","Tomato","Cucumber","Beetroot","Salad Dressing"]},{"title":"Hotdog","ingredients":["Hotdog Bun","Sausage","Ketchup","Mustard"]}]', true);
+        $lunch = (new \recipe\app\Lunch($ingredients, $recipes))(); // Create Lunch object and invoke.
+        $this->assertSame($expected, (array)$lunch);
     }
 
     /**

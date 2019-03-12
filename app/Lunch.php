@@ -13,41 +13,45 @@ namespace recipe\app;
 */
 class Lunch
 {
-    protected $ingredients;
-    protected $recipes;
-    protected $today;
+    protected $ingredients; // E.g. ['Ham'=>{'title':'Ham','best-before':'2019-03-09','use-by':'2019-03-14'}, 'Cheese'=>{ ...
+    protected $recipes; // Array of recipes as list of arrays (unchanged as supplied to constructor).
+    protected $today; // 'Y-m-d' of date in effect for sort comparisons e.g. '2019-03-09'.
 
     /**
     * Accepts ingredients and recipes and optional date for evaluation which defaults to today.
-    * @param array ingredients
-    * @param array recipes
-    * @param string date for evaluation
+    * @param array ingredients supplied as [ {"title":"Ham","best-before":"2019-03-09","use-by":"2019-03-14"}, {"title":"Cheese", ...
+    * @param array recipes supplied as [ {"title":"Fry-up","ingredients":["Bacon", ... ]}, {"title":"Salad","ingredients":["Lettuce", ...
+    * @param string ISO date for evaluation 'YYYY-MM-DD'
     */
     public function __construct(array $ingredients, array $recipes, $today = null)
     {
-        $this->ingredients = $ingredients; // List of ingredient descriptors.
-        $this->recipes = $recipes; // List of recipe descriptors.
-        $this->today = $today; // Over-ride today's date if required.
+        $this->today = $today === null ? date('Y-m-d') : $today; // Over-ride today's date if provided.
+        $this->recipes = $recipes; // Array of arrays with 'title' and 'ingredients' sub keys, unchanged.
+        $this->ingredients = []; // Re-index array of ingredients using ingredient titles as keys.
+        foreach ($ingredients as $key => $val) { // For all incoming ingredients.
+            $this->ingredients[$val['title']] = $val; // Index on ingredient title.
+        } // E.g. ['Ham'=>{'title':'Ham','best-before':'2019-03-09','use-by':'2019-03-14'}, 'Cheese'=>{ ...
     }
 
     /**
     * Return filtered recipe list based on criteria applied to ingredients.
+    * Note array_filter is unsuitable because it preserves keys which are arbitrary anyway.
     * @return array
     */
     public function __invoke()
     {
-        // $ingredients = $this->container['data']['ingredients'];
-        // $recipes = $this->container['data']['recipes'];
-        // $lunch = new Lunch($ingredients, $recipes);
-        // return $lunch();
-        return [];
-    }
+        $recipes = []; // Start new filtered recipes array.
 
-    /**
-    * Return filtered recipe list based on criteria applied to ingredients.
-    * @return array
-    */
-    protected function filter()
-    {
+        // Remove recipes without available ingredients.
+        foreach ($this->recipes as $key => $recipe) { // $recipe = {"title":"Fry-up","ingredients":["Bacon", ... ]}
+            foreach ($recipe['ingredients'] as $ingredient) { // Each ingredient in the recipe.
+                if (!array_key_exists($ingredient, $this->ingredients)) { // Discard recipe if any ingredient missing.
+                    continue 2; // Continue with the next recipe.
+                } // End if.
+            } // End foreach ingredient.
+            $recipes[] = $recipe; // All ingredients present then add recipe to the filtered list.
+        } // End foreach recipe.
+
+        return $recipes; // Return reduced list of recipes.
     }
 }

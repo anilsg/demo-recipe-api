@@ -102,7 +102,7 @@ and confirm data is being loaded and service is available.
 
 Test coverage is 99.8% of all code lines.
 
-![Test coverage](test_coverage.png) 
+![Code coverage](code_coverage.png) 
 
 ### References
 

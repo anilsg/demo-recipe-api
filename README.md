@@ -7,11 +7,11 @@
 - Documented for PHP composer installed globally
 - Docker has not been included in the time available
 
-    apt install php7 composer php-mbstring php-xml php-xdebug
+`apt install php7 composer php-mbstring php-xml php-xdebug`
 
 ### Installation
 
-Clone composer.json and composer.lock then:
+Clone `composer.json` and `composer.lock` then:
 
     composer install
 

@@ -23,9 +23,9 @@ $settings['addContentLengthHeader'] = false;
 $app = new \Slim\App(['settings' => $settings]);
 
 // Create Slim\App URI endpoints for REST API.
-$app->get('/ingredients', \recipe\app\App::class . ':getIngredients');
-$app->get('/recipes', \recipe\app\App::class . ':getRecipes');
-$app->get('/lunch', \recipe\app\App::class . ':getLunch');
+$app->get('/ingredients', \recipe\app\Router::class . ':getIngredients');
+$app->get('/recipes', \recipe\app\Router::class . ':getRecipes');
+$app->get('/lunch', \recipe\app\Router::class . ':getLunch');
 
 $app->run();
 

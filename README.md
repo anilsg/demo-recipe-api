@@ -6,6 +6,8 @@
 - PHP7 and modules required as shown
 - Documented for PHP composer installed globally
 - Docker has not been included in the time available
+- Uses SlimPHP web application framework.
+- Uses PHPUnit.
 
 `apt install php7 composer php-mbstring php-xml php-xdebug`
 
@@ -25,6 +27,13 @@ Convenience script provided in composer.json
 (executes `php -S localhost:8080 -t pub`):
 
     composer start
+
+### Structure
+
+- pub: Entry point containing index.php.
+- app: Classes implementing application.
+- data: dev location of JSON data files.
+- tests: PHPUnit test classes.
 
 ### References
 

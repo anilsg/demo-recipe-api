@@ -14,7 +14,7 @@ use \Psr\Container\ContainerInterface;
 * @author     anilsg
 * @link       https://github.com/anilsg/demo-recipe-api
 */
-class App
+class Router
 {
     protected $container;
 

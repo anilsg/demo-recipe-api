@@ -15,6 +15,10 @@ Clone `composer.json` and `composer.lock` then:
 
     composer install
 
+During build modifications may also require:
+
+    composer dump-autoload
+
 ### Usage
 
 Convenience script provided in composer.json
@@ -28,4 +32,5 @@ Convenience script provided in composer.json
 - https://www.php-fig.org/psr/psr-2/
 - https://getcomposer.org/
 - https://www.slimframework.com/
+- https://secure.php.net/manual/en/
 

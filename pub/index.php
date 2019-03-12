@@ -1,18 +1,13 @@
 <?php
-
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
+namespace recipe\pub;
 
 require '../vendor/autoload.php';
 
-$app = new \Slim\App;
+$settings['displayErrorDetails'] = true;
+$settings['addContentLengthHeader'] = false;
+$app = new \Slim\App(['settings' => $settings]);
 
-$app->get('/hello/{name}', function (Request $request, Response $response, array $args) {
-
-    $name = $args['name'];
-    $response->getBody()->write("Hello, $name");
-
-    return $response;
-});
+$app->get('/hello/{name}', \recipe\app\App::class);
 
 $app->run();
+

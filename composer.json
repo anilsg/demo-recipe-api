@@ -1,4 +1,7 @@
 {
+    "autoload": {
+        "psr-4": {"recipe\\app\\": "app/"}
+    },
     "require": {
         "slim/slim": "^3.12"
     },

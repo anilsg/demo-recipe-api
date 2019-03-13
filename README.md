@@ -100,7 +100,7 @@ and confirm data is being loaded and service is available.
 
 ### Test Coverage
 
-Test coverage is 99.8% of all code lines.
+Test coverage is now 100%.
 
 ![Code coverage](code_coverage.png) 
 

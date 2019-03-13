@@ -67,6 +67,9 @@ Convenience script to run tests and dump coverage, provided in composer.json
 
 ### REST API
 
+Access the REST API from the localhost http://localhost:8080/lunch
+Trailing slashes are not currently supported on the URI.
+
 These endpoints are supported:
 
 - **/ingredients**: Full list of known ingredients.
@@ -81,6 +84,13 @@ These endpoints are supported:
   - Recipes are returned with the oldest best-before date information provided.
   - Today's date as returned by the system is used for comparisons.
   - Both use-by and best-before are treated as expired on the given date.
+
+- **/lunch/YYYY-MM-DD**: Optional date parameter supported.
+
+  - E.g. http://localhost:8080/lunch/2019-02-25
+  - Over-rides today's date for retrieving future and past data sets.
+  - Non-conforming parameters will be dropped silently.
+  - Non-existent dates may restrict results arbitrarily.
 
 ### Notes
 

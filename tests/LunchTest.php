@@ -94,6 +94,20 @@ class LunchTest extends \Mockery\Adapter\Phpunit\MockeryTestCase
     }
 
     /**
+    * testLunchMixedDateRecipes: Test every line of Lunch sort function to achieve 100% coverage.
+    * Arrange test data so that some recipes have a best-before and others don't.
+    */
+    public function testLunchMixedDateRecipes()
+    {
+        $ingredients = json_decode('[ {"title":"Lettuce","use-by":"2019-03-09"},{"title":"Tomato","use-by":"2019-03-09"},{"title":"Cucumber","use-by":"2019-03-09"},{"title":"Beetroot","use-by":"2019-03-09"},{"title":"Salad Dressing","use-by":"2019-02-25"}, {"title":"Bacon","best-before":"2019-03-04","use-by":"2019-03-09"},{"title":"Eggs","use-by":"2019-03-09"},{"title":"Mushrooms","use-by":"2019-03-09"},{"title":"Sausage","best-before":"2019-02-25","use-by":"2019-03-09"},{"title":"Hotdog Bun","best-before":"2019-02-25","use-by":"2019-03-09"},{"title":"Ketchup","best-before":"2019-02-25","use-by":"2019-03-14"},{"title":"Mustard","best-before":"2019-02-25","use-by":"2019-03-14"}, {"title":"Ham","use-by":"2019-03-14"},{"title":"Cheese","use-by":"2019-03-14"},{"title":"Bread","use-by":"2019-03-14"},{"title":"Butter","use-by":"2019-03-14"}, {"title":"Salt"},{"title":"Pepper"},{"title":"Spinach","use-by":"2019-03-14"},{"title":"Milk","use-by":"2019-03-14"} ]', true);
+        $recipes = json_decode('[ {"title":"Fry-up","ingredients":["Bacon","Eggs","Baked Beans","Mushrooms","Sausage","Bread"]}, {"title":"Mushroom On Toast","ingredients":["Mushrooms","Bread","Pepper"]}, {"title":"Hotdog","ingredients":["Hotdog Bun","Sausage","Ketchup","Mustard"]}, {"title":"Salad","ingredients":["Lettuce","Tomato","Cucumber","Beetroot","Salad Dressing"]}, {"title":"Ham and Cheese Toastie","ingredients":["Ham","Cheese","Bread","Butter"]}, {"title":"Omelette","ingredients":["Eggs","Mushrooms","Milk","Salt","Pepper","Spinach"]} ]', true);
+        $expected = json_decode('[ {"title":"Mushroom On Toast","ingredients":["Mushrooms","Bread","Pepper"]}, {"title":"Salad","ingredients":["Lettuce","Tomato","Cucumber","Beetroot","Salad Dressing"]}, {"title":"Ham and Cheese Toastie","ingredients":["Ham","Cheese","Bread","Butter"]}, {"title":"Omelette","ingredients":["Eggs","Mushrooms","Milk","Salt","Pepper","Spinach"]}, {"title":"Hotdog","ingredients":["Hotdog Bun","Sausage","Ketchup","Mustard"],"best-before":"2019-02-25"} ]', true);
+        $lunch = new \recipe\app\Lunch($ingredients, $recipes, '2019-02-02');
+        $lunch = $lunch();
+        $this->assertSame($expected, (array)$lunch);
+    }
+
+    /**
     * testLunchDebugOutOfDateIngredients: Test to trace bug.
     */
     public function testLunchDebugOutOfDateIngredients()

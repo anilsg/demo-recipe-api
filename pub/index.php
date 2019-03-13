@@ -45,7 +45,7 @@ $container->register(new \recipe\app\DataProvider($container)); // Make data ava
 // Create Slim\App URI endpoints for REST API.
 $app->get('/ingredients', \recipe\app\Router::class . ':getIngredients');
 $app->get('/recipes', \recipe\app\Router::class . ':getRecipes');
-$app->get('/lunch', \recipe\app\Router::class . ':getLunch');
+$app->get('/lunch[/{today}]', \recipe\app\Router::class . ':getLunch');
 
 // Start serving the Slim\App.
 $app->run();

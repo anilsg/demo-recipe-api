@@ -63,7 +63,6 @@ class RouterTest extends \Mockery\Adapter\Phpunit\MockeryTestCase
     */
     public function testGetLunch()
     {
-        // under construction
         $logger = \Mockery::mock('recipe\app\LoggerProvider'); // Mock the LoggerProvider.
         $logger->shouldReceive('addInfo')->once()->andReturnNull(); // Expect a single call to log the GET request.
 
@@ -78,6 +77,28 @@ class RouterTest extends \Mockery\Adapter\Phpunit\MockeryTestCase
         $request = \Slim\Http\Request::createFromEnvironment($environment);
         $response = new \Slim\Http\Response();
         $response = $router->getLunch($request, $response, []);
+        $this->assertSame('[]', (string)$response->getBody());
+    }
+
+    /**
+    * Test a REST GET on the lunch URI specifying a today's date.
+    */
+    public function testGetLunchWithToday()
+    {
+        $logger = \Mockery::mock('recipe\app\LoggerProvider'); // Mock the LoggerProvider.
+        $logger->shouldReceive('addInfo')->once()->andReturnNull(); // Expect a single call to log the GET request.
+
+        $container = ['data'=>['ingredients'=>[], 'recipes'=>[]], 'logger'=>$logger]; // Configure minimal data and logger.
+        $container = new \Slim\Container($container);
+        $router = new \recipe\app\Router($container); // Not testing \Slim\App testing \recipe\app\Router.
+        $environment = \Slim\Http\Environment::mock([ // Mock a GET /recipes request.
+            'REQUEST_METHOD' => 'GET',
+            'REQUEST_URI' => '/lunch/2019-03-04',
+            'QUERY_STRING'=>'']
+        );
+        $request = \Slim\Http\Request::createFromEnvironment($environment);
+        $response = new \Slim\Http\Response();
+        $response = $router->getLunch($request, $response, ['today'=>'2019-03-04']);
         $this->assertSame('[]', (string)$response->getBody());
     }
 }

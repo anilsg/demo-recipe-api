@@ -60,14 +60,19 @@ class Router
 
     /**
     * API endpoint to call recipe\app\Lunch and return the specified lunch recipes JSON.
+    * Accepts optional date URI parameter.
+    * Due to lack of time parameter if forced to conforming pattern or discarded, rather than handled with reporting.
     * @param \Psr\Http\Message\ServerRequestInterface
     * @param \Psr\Http\Message\ResponseInterface
-    * @param array
+    * @param array may contain optional ISO date for current date
     * @return \Psr\Http\Message\ResponseInterface
     */
     public function getLunch(Request $request, Response $response, $args = [])
     {
-        $lunch = new \recipe\app\Lunch($this->container['data']['ingredients'], $this->container['data']['recipes']); // Load data.
+        $today = array_key_exists('today', $args) ? $args['today'] : ''; // Potential optional YYYY-MM-DD to act as today's date.
+        $today = preg_replace('/[^0-9]/', '', $today); // Strip all non-numerics: '2019-04-09' => '20190409'.
+        $today = strlen($today) == 8 ? substr($today, 0, 4).'-'.substr($today, 4, 2).'-'.substr($today, 6, 2) : ''; // And back.
+        $lunch = new \recipe\app\Lunch($this->container['data']['ingredients'], $this->container['data']['recipes'], $today); // Load data.
         $today = $lunch->today; // Capture the today date in use.
         $lunch = $lunch(); // Invoke to sort and return data.
         $this->container['logger']->addInfo('GET lunch list', ['count'=>count($lunch), 'today'=>$today]); // Log the request.
